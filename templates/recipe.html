@@ -1,0 +1,5 @@
+{% extends "base.html" %}
+{% block title %}{{ recipe['name'].title() }}{% endblock %}
+{% block content %}
+<pre>{{ recipe | pprint }}</pre>
+{% endblock %}

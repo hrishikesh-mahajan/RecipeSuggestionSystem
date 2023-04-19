@@ -1,5 +1,10 @@
 {% extends 'base.html' %}
-{% block title %}Flask - HomePage{% endblock %}
+{% block title %}Recipe Suggestor - HomePage{% endblock %}
 {% block content %}
-<h1>Flask is running.</h1>
+<h1>Recipes</h1>
+{% for item in documents %}
+<ul>
+    <li><a href="{{ item['_id'] }}">{{ item['name'].title() }}</a></li>
+</ul>
+{% endfor %}
 {% endblock %}
