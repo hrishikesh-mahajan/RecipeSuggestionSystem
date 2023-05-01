@@ -1,16 +1,19 @@
 import pymongo
 
-client = pymongo.MongoClient("mongodb://localhost:27017")
-db = client["RecipeSuggestionSystem"]
-collection = db["Recipes"]
+if __name__ == "__main__":
+    client = pymongo.MongoClient("mongodb://localhost:27017")
+    db = client["RecipeSuggestionSystem"]
+    collection = db["Recipes"]
 
-ingredients = set()
-for document in collection.find():
-    ingredients.update(set(document["ingredients"]))
+    ingredientsSet = set()
+    for document in collection.find():
+        ingredientsSet.update(set(document["ingredients"]))
 
-print("Total Ingredients:", len(ingredients))
+    print("Total Ingredients:", len(ingredientsSet))
 
-ingredients = sorted(ingredients)
+    ingredientsSet = sorted(ingredientsSet)
 
-with open("ingredients.py", "w") as f:
-    f.write("ingredientsSet = " + str(ingredients))
+    ingredientsList = [ingredient for ingredient in ingredientsSet if len(ingredient) > 1]
+
+    with open("ingredients.py", "w") as f:
+        f.write("ingredientsList = " + str(ingredientsList))
