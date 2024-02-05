@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Recipe Suggestor - HomePage{% endblock %}
+
+{% block content %}
+<h1>Recipes</h1>
+<form method="post">
+    <label for="ingredients">Ingredients:</label>
+    <input type="text" name="ingredients">
+    <input type="submit" value="Submit">
+</form>
+{% for item in documents %}
+<ul>
+    <li><a href="/recipe/{{ item['_id'] }}" >{{ item['name'].title() }}</a></li>
+</ul>
+{% endfor %}
+{% endblock %}
