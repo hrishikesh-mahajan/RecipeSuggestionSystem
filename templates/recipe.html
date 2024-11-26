@@ -2,6 +2,49 @@
 
 {% block title %}{{ recipe['name'].title() }}{% endblock %}
 
+{% block nav %}{% endblock %}
+
 {% block content %}
-<pre>{{ recipe | pprint }}</pre>
+<table class="table table-striped" style="border-radius: 15px; overflow: hidden;">
+    {% for key, value in recipe.items() %}
+    {% if 'id' not in key  %}
+    <tr>
+        <th>{{ key.title() }}</th>
+        <td>
+            {% if value is iterable and not value is string %}
+            {% if key == 'steps' %}
+            <ol>
+                {% for item in value %}
+                <li>{{ item.title() }}</li>
+                {% endfor %}
+            </ol>
+            {% elif key == 'tags' or key == 'ingredients' %}
+            <ol class="list-inline">
+                {% for item in value %}
+                <li class="list-inline-item badge badge-secondary">{{ item }}</li>
+                {% endfor %}
+            </ol>
+            {% else %}
+            <ul>
+                {% for item in value %}
+                <li>{{ item }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            {% elif key == 'submitted' %}
+            {{ value.strftime('%B %d, %Y') }}
+            {% elif key == 'name' %}
+            {{ value.title() }}
+            {% elif 'minutes' in key %}
+            {% set hours = value // 60 %}
+            {% set minutes = value % 60 %}
+            {{ hours }} h {{ minutes }} m
+            {% else %}
+            {{ value }}
+            {% endif %}
+        </td>
+    </tr>
+    {% endif %}
+    {% endfor %}
+</table>
 {% endblock %}

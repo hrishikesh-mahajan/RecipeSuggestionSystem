@@ -6,5 +6,6 @@ if __name__ == "__main__":
     collection = db["Recipes"]
     documents = collection.find({})
     print(client)
-    for item in documents:
-        print(item)
+    # for item in documents:
+    #     print(item)
+    print(len(list(documents)))
